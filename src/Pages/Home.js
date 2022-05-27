@@ -1,84 +1,33 @@
 import TextMediaHeader from "../components/TextMediaHeader";
 import Header from "../components/Header";
 import CardsWrapper from "../components/CardsWrapper";
-
-const items = [
-  {
-    img: "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
-    title: "Book title",
-    description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    buttonLink: 'link'
-  },
-  {
-    img: "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
-    title: "Book title",
-    description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    buttonLink: 'link'
-  },
-  {
-    img: "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
-    title: "Book title",
-    description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    buttonLink: 'link'
-  },
-  {
-    img: "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
-    title: "Book title",
-    description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    buttonLink: 'link'
-  },
-  {
-    img: "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
-    title: "Book title",
-    description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    buttonLink: 'link'
-  },
-  {
-    img: "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
-    title: "Book title",
-    description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    buttonLink: 'link'
-  },
-  {
-    img: "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
-    title: "Book title",
-    description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    buttonLink: 'link'
-  },
-  {
-    img: "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
-    title: "Book title",
-    description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    buttonLink: 'link'
-  },
-  {
-    img: "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
-    title: "Book title",
-    description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    buttonLink: 'link'
-  },
-  {
-    img: "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
-    title: "Book title",
-    description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    buttonLink: 'link'
-  },
-  {
-    img: "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
-    title: "Book title",
-    description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    buttonLink: 'link'
-  },
-  {
-    img: "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
-    title: "Book title",
-    description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    buttonLink: 'link'
-  }            
-  ]
+import ErrorMessage from '../components/errorMessage/ErrorMessage';
+import useBooksService from "../services/BooksService";
+import CardSkeleton from "../components/CardSkeleton";
+import { useState, useEffect } from "react";
 
 
 const HomePage = () => {
+  const [bookList, setBookList] = useState([]);
+
+  const { loading, error, getBooks } = useBooksService();
+
+  useEffect(() => {
+    onRequest();
+  }, [])
+
+  const onRequest = () => {
+    getBooks()
+      .then(onCharListLoaded)
+  }
+
+  const onCharListLoaded = (newBookList) => {
+    setBookList(newBookList.slice(0, 8));
+
+  }
+
+  const errorMessage = error ? <ErrorMessage /> : null;
+  const placeholder = loading ? <CardSkeleton /> : null;
   return (
     <>
       <div className="bg-info">
@@ -90,7 +39,9 @@ const HomePage = () => {
           alt="random image" />
       </div>
       <Header title="Check most popular books!" />
-      <CardsWrapper items={items} />
+      {placeholder}
+      {errorMessage}
+      <CardsWrapper items={bookList} />
     </>
   )
 }
