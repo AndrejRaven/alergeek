@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/alergeek/static/css/main.e7720ab7.css",
-    "main.js": "/alergeek/static/js/main.ca4d1afd.js",
+    "main.js": "/alergeek/static/js/main.76097b8a.js",
     "static/media/library.png": "/alergeek/static/media/library.060dcb3c1e33e6f1c293.png",
     "static/media/error.gif": "/alergeek/static/media/error.42292aa12b6bc303ce99.gif",
     "static/media/audiobook.png": "/alergeek/static/media/audiobook.e744f880fab195fdadfc.png",
     "index.html": "/alergeek/index.html",
     "main.e7720ab7.css.map": "/alergeek/static/css/main.e7720ab7.css.map",
-    "main.ca4d1afd.js.map": "/alergeek/static/js/main.ca4d1afd.js.map"
+    "main.76097b8a.js.map": "/alergeek/static/js/main.76097b8a.js.map"
   },
   "entrypoints": [
     "static/css/main.e7720ab7.css",
-    "static/js/main.ca4d1afd.js"
+    "static/js/main.76097b8a.js"
   ]
 }
