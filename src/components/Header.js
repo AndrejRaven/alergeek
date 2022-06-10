@@ -1,6 +1,6 @@
-const Header = ({ title }) => {
+const Header = ({ title, center }) => {
   return (
-    <p className="text-center my-5 h1 font-weight-bold">{title}</p>
+    <p className={`${center ? 'text-center': null} my-5 h1 font-weight-bold`}>{title}</p>
   )
 }
 

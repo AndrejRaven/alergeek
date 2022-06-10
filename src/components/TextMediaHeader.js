@@ -1,6 +1,7 @@
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 
-const TextMediaHeader = ({ title, text, image, altText }) => {
+const TextMediaHeader = ({ title, text, image, altText, btnLink, btnText }) => {
   return (
     <Container className="text-white pb-5">
       <Row>
@@ -8,9 +9,10 @@ const TextMediaHeader = ({ title, text, image, altText }) => {
           <div className="d-flex flex-column h-100 justify-content-center">
             <h1 className='my-4'>{title}</h1>
             <p className="fs-4">{text}</p>
-            <div>
-              <Button className="my-4">To the books</Button>
-            </div>
+            {btnLink ?
+              <div>
+                <Link to={btnLink} className="btn btn-primary my-4">{btnText}</Link>
+              </div> : null}
           </div>
         </Col>
         <Col md={6} xs={12}>

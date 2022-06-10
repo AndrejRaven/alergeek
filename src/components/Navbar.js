@@ -11,7 +11,7 @@ const NavbarComponent = () => {
           <Nav>
             <Link to="/" className="nav-link">Home</Link>
             <Link to="/books" className="nav-link">Books</Link>
-            <Link to="/favourite" className="nav-link">Favourite</Link>
+            <Link to="/favorite" className="nav-link">Favorite</Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

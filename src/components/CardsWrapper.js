@@ -2,7 +2,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import SingleCard from './Card';
 
 
-const CardsWrapper = ({ items, newItemLoading, bookEnded, pageNumber, onRequest }) => {
+const CardsWrapper = ({ items, newItemLoading, bookEnded, pageNumber, onRequest, filters }) => {
 
   function renderItems(arr) {
     const cards = arr.map(card => {
@@ -20,6 +20,10 @@ const CardsWrapper = ({ items, newItemLoading, bookEnded, pageNumber, onRequest 
     )
   }
 
+  const onShowMore = () => {
+    onRequest(pageNumber, false, filters);
+  }
+
   const components = renderItems(items);
   return (
     <Container>
@@ -29,7 +33,7 @@ const CardsWrapper = ({ items, newItemLoading, bookEnded, pageNumber, onRequest 
           variant="primary"
           disabled={newItemLoading}
           style={{ 'display': bookEnded ? 'none' : 'block' }}
-          onClick={() => onRequest(pageNumber)}>
+          onClick={() => onShowMore()}>
           Load more...
         </Button>
         : null

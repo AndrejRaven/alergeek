@@ -8,31 +8,76 @@ const useBooksService = () => {
 	const _endpoint = 'book';
 	const _filters = 'ordering=-downloads';
 
-	const getBooks = async (page = _basePage, endpoint = _endpoint) => {
-		const res = await request(`${_apiBase}${endpoint}/?page=${page}`);
-
-		return res.results.map(_transformBook);
+	const getBooks = async (page = _basePage, filters = _filters) => {
+		const res = await request(`${_apiBase}${_endpoint}/?${filters}&page=${page}`);
+		const result = {
+			books: res.results.map(_transformBook),
+			next: res.next ? false : true,
+			count: res.count
+			}; 
+		return result;
 	}
 
-	const getFilteredBooks = async (endpoint = _endpoint, filters = _filters) => {
-		const res = await request(`${_apiBase}${endpoint}/?${filters}`);
+	const getBook = async (id) => {
+		const res = await request(`${_apiBase}${_endpoint}/${id}`);
+		// if(!res) {
+		// 	console.log('error')
+		// 	return null;
+		// }
+		return _transformBook(res);
+	}
+	
+	const getHTMLBook = async (id) => {
+		const res = await request(`${_apiBase}resource/${id}`);
 
-		return res.results.map(_transformBook);
+		return res;
+	}
+
+	const getHTML = async (url) => {
+		const res = await request(url);
+
+		return res;
+	}
+
+	const getAllLanguages = async () => {
+		let langs = [];
+		let page = 1;
+		let res = await request(`${_apiBase}language/?page=${page}`);
+		langs = res.results;
+		while(res.next) {
+			page += 1; 
+			res = await request(`${_apiBase}language/?page=${page}`);
+			langs = [ ...langs, ...res.results]
+		}
+		
+		return langs.map(_transformLanguage);
 	}
 
 	const _transformBook = (book) => {
 		const imageUri = /.cover.medium.jpg/;
 		const typeAuthor = /Author/;
+	
 		return {
 			id: book.id,
 			title: book.title,
 			description: book.description ? book.description : `No description found about this book`,
 			image: book.resources.filter(({ uri }) => imageUri.test(uri))[0].uri,
+			resources: book.resources,
+			subjects: book.subjects,
 			bookshelves: book.bookshelves,
 			agents: book.agents,
 			downloads: book.downloads,
-			language: book.languages[0],
-			author: book.agents.filter(({ type }) => typeAuthor.test(type))[0].person
+			language: book.languages,
+			author: book.agents.filter(({ type }) => typeAuthor.test(type))[0] ? book.agents.filter(({ type }) => typeAuthor.test(type))[0].person : 'No info'
+		}
+	}
+
+	const _transformLanguage = (lang) => {
+		const langName = new Intl.DisplayNames(['en'], { type: 'language' });
+
+		return {
+			value: lang.name,
+			name: langName.of(lang.name)
 		}
 	}
 
@@ -43,8 +88,11 @@ const useBooksService = () => {
 		process, 
 		setProcess,
 		getBooks,
-		getFilteredBooks, 
-		clearError
+		getBook,
+		clearError,
+		getAllLanguages,
+		getHTMLBook,
+		getHTML
 	}
 }
 
