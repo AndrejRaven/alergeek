@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/AndrejRaven/alergeek/static/css/main.e7720ab7.css",
+    "main.js": "/AndrejRaven/alergeek/static/js/main.0e964d85.js",
+    "static/media/library.png": "/AndrejRaven/alergeek/static/media/library.060dcb3c1e33e6f1c293.png",
+    "static/media/error.gif": "/AndrejRaven/alergeek/static/media/error.42292aa12b6bc303ce99.gif",
+    "static/media/audiobook.png": "/AndrejRaven/alergeek/static/media/audiobook.e744f880fab195fdadfc.png",
+    "index.html": "/AndrejRaven/alergeek/index.html",
+    "main.e7720ab7.css.map": "/AndrejRaven/alergeek/static/css/main.e7720ab7.css.map",
+    "main.0e964d85.js.map": "/AndrejRaven/alergeek/static/js/main.0e964d85.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e7720ab7.css",
+    "static/js/main.0e964d85.js"
+  ]
+}
